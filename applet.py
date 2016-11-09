@@ -1,6 +1,8 @@
+#!/usr/bin/env python
 import os
 import signal
 import gi
+
 gi.require_version('Gtk','3.0')
 gi.require_version('AppIndicator3','0.1')
 gi.require_version('Notify','0.7')
@@ -14,9 +16,10 @@ APPINDICATOR_ID = 'network-proxy-toggle'
 mode = "org.gnome.system.proxy mode"
 host="org.gnome.system.proxy.http host"
 port="org.gnome.system.proxy.http port"
+img_path = "/usr/share/icons/proxy-applet.svg"
 
 def main():
-    indicator = appindicator.Indicator.new(APPINDICATOR_ID,os.path.abspath('sample_icon.svg'),appindicator.IndicatorCategory.SYSTEM_SERVICES)
+    indicator = appindicator.Indicator.new(APPINDICATOR_ID,img_path,appindicator.IndicatorCategory.SYSTEM_SERVICES)
     indicator.set_status(appindicator.IndicatorStatus.ACTIVE)
     indicator.set_menu(build_menu())
     notify.init(APPINDICATOR_ID)
