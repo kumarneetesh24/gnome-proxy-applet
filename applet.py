@@ -39,12 +39,15 @@ def toggle(source):
         os.popen("gsettings set "+mode+" manual").read()
         host_data = os.popen("gsettings get "+host).read()
         port_data = os.popen("gsettings get "+port).read()
-        print host_data,port_data
+        notify_for_manual(host_data,port_data)
     else:
         os.popen("gsettings set "+mode+" none").read()
-        notify.Notification.new("<b>Proxy</b>", "<p> none <p>").show()
+        notify.Notification.new("Proxy: none",None).show()
     
-#def notify_for_manual(host_data,port_data):
+
+def notify_for_manual(host_data,port_data):
+    data = host_data+":"+port_data 
+    notify.Notification.new("Proxy "+data,None).show()
 
 def quit(source):
     notify.uninit()
