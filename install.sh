@@ -21,7 +21,7 @@ chmod a+x $APPLET_FILE_DEST
 #copying icon
 cp proxy-applet.svg /usr/share/icons/proxy-applet.svg || die "could not copy image"
 
-cat > TMP_FILE <<EOT
+cat > $TMP_FILE <<EOT
 #!/bin/sh
 $APPLET_FILE_DEST 
 
