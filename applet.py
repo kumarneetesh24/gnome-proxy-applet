@@ -1,3 +1,4 @@
+import os
 import signal
 import gi
 gi.require_version('Gtk','3.0')
@@ -9,7 +10,7 @@ from gi.repository import AppIndicator3 as appindicator
 APPINDICATOR_ID = 'network-proxy-toggle'
 
 def main():
-    indicator = appindicator.Indicator.new(APPINDICATOR_ID,'noimage',appindicator.IndicatorCategory.SYSTEM_SERVICES)
+    indicator = appindicator.Indicator.new(APPINDICATOR_ID,os.path.abspath('sample_icon.svg'),appindicator.IndicatorCategory.SYSTEM_SERVICES)
     indicator.set_status(appindicator.IndicatorStatus.ACTIVE)
     indicator.set_menu(build_menu())
     gtk.main()
