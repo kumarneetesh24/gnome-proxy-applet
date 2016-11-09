@@ -12,8 +12,8 @@ from gi.repository import Notify as notify
 
 APPINDICATOR_ID = 'network-proxy-toggle'
 mode = "org.gnome.system.proxy mode"
-host = "org.gnome.system.proxy.http host"
-port = "org.gnome.proxy.http port"
+host="org.gnome.system.proxy.http host"
+port="org.gnome.system.proxy.http port"
 
 def main():
     indicator = appindicator.Indicator.new(APPINDICATOR_ID,os.path.abspath('sample_icon.svg'),appindicator.IndicatorCategory.SYSTEM_SERVICES)
@@ -24,14 +24,27 @@ def main():
 
 def build_menu():
     menu = gtk.Menu()
+    item_toggle = gtk.MenuItem('toggle')
+    item_toggle.connect('activate',toggle)
+    menu.append(item_toggle)
     item_quit = gtk.MenuItem('quit')
     item_quit.connect('activate', quit)
     menu.append(item_quit)
     menu.show_all()
     return menu
 
-#def toggle():
-#    os.popen("gsettings get"+mode).read()
+def toggle(source):
+    data = os.popen("gsettings get "+mode).read()
+    if(data == "'none'\n"):
+        os.popen("gsettings set "+mode+" manual").read()
+        host_data = os.popen("gsettings get "+host).read()
+        port_data = os.popen("gsettings get "+port).read()
+        print host_data,port_data
+    else:
+        os.popen("gsettings set "+mode+" none").read()
+        notify.Notification.new("<b>Proxy</b>", "<p> none <p>").show()
+    
+#def notify_for_manual(host_data,port_data):
 
 def quit(source):
     notify.uninit()
