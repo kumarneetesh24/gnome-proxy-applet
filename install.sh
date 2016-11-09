@@ -23,15 +23,23 @@ cp proxy-applet.svg /usr/share/icons/proxy-applet.svg || die "could not copy ima
 
 cat > $TMP_FILE <<EOT
 #!/bin/sh
-$APPLET_FILE_DEST 
 
+### BEGIN INIT INFO
+# Provides:          proxy-applet 
+# Required-Start:    udev
+# Required-Stop:
+# Should-Start:
+# Default-Start:     2 3 4 5
+# Default-Stop:
+# Short-Description: indicator to change proxy between none and manual
+### END INIT INFO
 EOT
 
 cp $TMP_FILE $INIT_FILE && \
-   chmod +x $INT_FILE || die "could not copy applet init file to $INIT_FILE"
+   chmod +x $INIT_FILE || die "could not copy applet init file to $INIT_FILE"
 rm $TMP_FILE 
 
-update-rc.d proxy-applet defaults || die "could not start the services contact the author"
+update-rc.d proxy-applet defaults && echo "success" 
 
 
 exit 0
