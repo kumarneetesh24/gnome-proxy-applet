@@ -35,22 +35,36 @@ def checkProxy():
 
 def build_menu():
     menu = gtk.Menu()
+    
+    item_toggle = gtk.MenuItem('toggle')
+    item_toggle.connect('activate',toggle)
+    menu.append(item_toggle)
+    
+    # Separator
+    smi = gtk.SeparatorMenuItem()
+    smi.show()
+    menu.append(smi)
+    
+    #group for radio icon
     grp = []
+    #radio icon
     item_none = gtk.RadioMenuItem.new_with_label(grp, 'none')
     grp = item_none.get_group()
     item_none.set_active(checkProxy() == True)
     item_none.connect('toggled',prnone)
     menu.append(item_none)
 
+    #radio icon 
     item_manual = gtk.RadioMenuItem.new_with_label(grp,'manual')
     grp = item_manual.get_group()
     item_manual.set_active(checkProxy() == False)
     item_manual.connect('toggled',manual)
     menu.append(item_manual)
-
-    item_toggle = gtk.MenuItem('toggle')
-    item_toggle.connect('activate',toggle)
-    menu.append(item_toggle)
+    
+    # Separator
+    smi = gtk.SeparatorMenuItem()
+    smi.show()
+    menu.append(smi)
     
     item_quit = gtk.MenuItem('quit')
     item_quit.connect('activate', quit)
