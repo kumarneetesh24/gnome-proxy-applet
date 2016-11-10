@@ -25,16 +25,44 @@ def main():
     notify.init(APPINDICATOR_ID)
     gtk.main()
 
+def checkProxy(): 
+   data = os.popen("gsettings get "+mode).read()
+   if(data == "'none'\n"):
+       return True
+   else:
+       return False 
+
+
 def build_menu():
     menu = gtk.Menu()
+    
+#    item_none = gtk.CheckMenuItem(label='none')
+#    item_none.set_active(checkProxy() == True)
+#    item_none.connect('activate',none)
+#    menu.append(item_none)
+
+    item_manual = gtk.CheckMenuItem(label='manual')
+    item_manual.set_active(checkProxy() == False)
+    item_none.connect('activate',manual)
+    menu.append(item_manual)
+
     item_toggle = gtk.MenuItem('toggle')
     item_toggle.connect('activate',toggle)
     menu.append(item_toggle)
+    
     item_quit = gtk.MenuItem('quit')
     item_quit.connect('activate', quit)
     menu.append(item_quit)
+    
     menu.show_all()
     return menu
+
+#def none(source):
+#    os.popen("gsettings set "+mode+" none")
+
+def manual(source):
+    os.popen("gsettings set "+mode+" manual")
+ 
 
 def toggle(source):
     data = os.popen("gsettings get "+mode).read()
