@@ -57,4 +57,5 @@ def quit(source):
     gtk.main_quit()
 
 if __name__ == "__main__":
+    signal.signal(signal.SIGINT, signal.SIG_DFL)
     main()
