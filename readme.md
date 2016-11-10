@@ -13,7 +13,7 @@ For Linux if you want to add it to system path then
  `add it to startup else run everytime`
 
 ###OR 
-you can also run install.sh in sudo mode it will install it for you
+you can also run install.sh it will install it for you
 
 ## For contribution 
 fork the repository clone it then make changes and give pull requests.
