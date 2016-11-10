@@ -35,15 +35,17 @@ def checkProxy():
 
 def build_menu():
     menu = gtk.Menu()
-    
-#    item_none = gtk.CheckMenuItem(label='none')
-#    item_none.set_active(checkProxy() == True)
-#    item_none.connect('activate',none)
-#    menu.append(item_none)
+    grp = []
+    item_none = gtk.RadioMenuItem.new_with_label(grp, 'none')
+    grp = item_none.get_group()
+    item_none.set_active(checkProxy() == True)
+    item_none.connect('toggled',prnone)
+    menu.append(item_none)
 
-    item_manual = gtk.CheckMenuItem(label='manual')
+    item_manual = gtk.RadioMenuItem.new_with_label(grp,'manual')
+    grp = item_manual.get_group()
     item_manual.set_active(checkProxy() == False)
-    item_none.connect('activate',manual)
+    item_manual.connect('toggled',manual)
     menu.append(item_manual)
 
     item_toggle = gtk.MenuItem('toggle')
@@ -57,12 +59,12 @@ def build_menu():
     menu.show_all()
     return menu
 
-#def none(source):
-#    os.popen("gsettings set "+mode+" none")
+def prnone(source):
+    os.popen("gsettings set "+mode+" none")
 
 def manual(source):
     os.popen("gsettings set "+mode+" manual")
- 
+
 
 def toggle(source):
     data = os.popen("gsettings get "+mode).read()
